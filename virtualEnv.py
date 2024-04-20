@@ -512,8 +512,9 @@ def upload_github():
         branch = 'origin'
         remote = 'main'
         if first_upload in ['Y', 'y']:
-            branch = input('Enter your branch name: ')
             remote = input('Enter your remote name: ')
+            branch = input('Enter your branch name: ')
+            
             runSubprocess(f'git branch -M {branch}', 
                           shell=True, check=True)
             print('\ngit branch\n')
@@ -543,10 +544,13 @@ def git_remote_v():
     except CalledProcessError as cp:
         print(f'An error occurred: {cp.returncode}')
 
-def git_remove_origin():
+def git_remove_remote():
+    remote = input(
+        'Enter the remote name:'
+    )
     try:
         runSubprocess(
-            'git remote remove origin',
+            f'git remote remove {remote}',
             shell=True,
             check=True
         )
@@ -585,13 +589,16 @@ def git_clone():
     except CalledProcessError as cp:
         print(f'An error occurred: {cp.returncode}')
 
-def git_push_origin():
+def git_push():
+    remote = input(
+        'Enter the remote name: '
+    )
     branch = input(
         'Enter the branch name: '
     )
     try:
         runSubprocess(
-            f'git push origin {branch}',
+            f'git push {remote} {branch}',
             shell=True,
             check=True
         )
@@ -1043,7 +1050,7 @@ def run():
                         '\n******************** GIT ********************\n\n'
                         '1. Upload your project to GitHub\n'
                         '2. git remote -v\n'
-                        '3. git remote remove origin\n'
+                        '3. git remote remove\n'
                         '4. git clone\n'
                         '5. Send local commits to a remote repository\n'
                         '6. git checkout\n'
@@ -1058,9 +1065,9 @@ def run():
                     if git_option == '1':
                         upload_github()
                     elif git_option == '2': git_remote_v()
-                    elif git_option == '3': git_remove_origin()
+                    elif git_option == '3': git_remove_remote()
                     elif git_option == '4': git_clone()
-                    elif git_option == '5': git_push_origin()
+                    elif git_option == '5': git_push()
                     elif git_option == '6': git_checkout()
                     elif git_option == '7': git_merge()
                     elif git_option == '8': git_branch()
