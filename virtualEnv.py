@@ -166,6 +166,8 @@ RUN python -m venv /app/venv
 # Activate the virtual environment
 ENV PATH="/app/venv/bin:$PATH"
 
+RUN pip install Django
+
 #Install requirements.txt dependencies (if you need it)
 {requirements}
 
