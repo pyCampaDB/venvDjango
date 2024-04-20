@@ -508,8 +508,9 @@ def upload_github():
             first_upload = input('Enter if it is your first commit [Y/N]: ')
             if first_upload not in ['Y', 'y', 'N', 'n']:
                 print('\nInvalid option\n')
-        branch = 'main'
-        remote = 'origin'
+        # usually, the values are branch = 'main' and remote='origin'
+        branch = 'origin'
+        remote = 'main'
         if first_upload in ['Y', 'y']:
             branch = input('Enter your branch name: ')
             remote = input('Enter your remote name: ')
